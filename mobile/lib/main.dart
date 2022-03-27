@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/signup.dart';
+import 'package:mobile/user_questions/user_answer_submit.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,10 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "What's Next",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: SignUp(),
+      // home: SignUp(),
+      home: UserAnswerSubmit(),
     );
   }
 }
