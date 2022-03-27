@@ -22,3 +22,6 @@ process.on("unhandledRejection", (err, promise) => {
     console.log(`Logged Error: ${err}`);
     server.close(() => process.exit(1));
 });
+
+const userRouter = require("./routes/user_input_routes");
+app.use("/user",userRouter);
