@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/dashboardAdmin.dart';
-import 'package:mobile/signup.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mobile/services/service_user.dart';
 import 'package:mobile/variables/variables.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile/services/service_categories.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({Key? key}) : super(key: key);
+class CategoryEdit extends StatefulWidget {
+  var id;
+  var categoryName;
+  CategoryEdit({
+    this.id,
+    this.categoryName,
+    Key? key,
+  }) : super(key: key);
 
   @override
-  _SignInState createState() => _SignInState();
+  _CategoryEditState createState() => _CategoryEditState();
 }
 
 ColorCodes colorCodes = new ColorCodes();
 
-var userEmail, userPassword, userToken;
+var id, categoryName;
 
-class _SignInState extends State<SignIn> {
+final TextEditingController _categoryName = new TextEditingController();
+
+class _CategoryEditState extends State<CategoryEdit> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      id = widget.id;
+      _categoryName.text = widget.categoryName;
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +44,7 @@ class _SignInState extends State<SignIn> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          'SIGN IN',
+          'EDIT CATEGORY',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
@@ -59,84 +75,27 @@ class _SignInState extends State<SignIn> {
                           child: SizedBox(
                               height: size.height / 3,
                               width: size.width,
-                              child: Image.asset("images/signin.png")),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: TextFormField(
-                            controller: TextEditingController(text: userEmail),
-                            onChanged: (value) {
-                              userEmail = value;
-                            },
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter Email';
-                              } else if (RegExp(
-                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
-                                return null;
-                              } else {
-                                return 'Please enter valid email!';
-                              }
-                            },
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              prefixIcon: Image.asset("icons/email.png"),
-                              labelText: "Email",
-                              labelStyle: TextStyle(
-                                  fontSize: 16,
-                                  color: colorCodes.textFieldColor),
-                              fillColor: colorCodes.fillColor,
-                              filled: true,
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(
-                                  color: colorCodes.focusBorder,
-                                ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(
-                                  color: colorCodes.errorBorder,
-                                ),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(
-                                  color: colorCodes.errorBorder,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 2.0,
-                                ),
-                              ),
-                            ),
-                          ),
+                              child: Image.asset("images/category.png")),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: TextFormField(
                             controller:
-                                TextEditingController(text: userPassword),
+                                TextEditingController(text: _categoryName.text),
                             onChanged: (value) {
-                              userPassword = value;
+                              categoryName = value;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter password';
-                              } else if (value.length < 6) {
-                                return 'Password must contain atleast 6 characters';
+                                return 'Please enter Category Name';
+                              } else {
+                                return null;
                               }
-                              return null;
                             },
-                            obscureText: true,
-                            style: TextStyle(color: colorCodes.textFieldColor),
+                            style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
-                              prefixIcon: Image.asset("icons/password.png"),
-                              labelText: "Password",
+                              prefixIcon: Image.asset("icons/category.png"),
+                              labelText: "Category Name",
                               labelStyle: TextStyle(
                                   fontSize: 16,
                                   color: colorCodes.textFieldColor),
@@ -181,19 +140,12 @@ class _SignInState extends State<SignIn> {
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    User()
-                                        .login(userEmail, userPassword)
+                                    Categories()
+                                        .categoryedit(id, categoryName)
                                         .then((val) async {
                                       if (val.data['success']) {
-                                        userToken = val.data['token'];
-
-                                        SharedPreferences prefs =
-                                            await SharedPreferences
-                                                .getInstance();
-                                        prefs.setString('token', userToken);
-
                                         Fluttertoast.showToast(
-                                            msg: "Authenticated",
+                                            msg: "Updated Successfully",
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
@@ -201,14 +153,11 @@ class _SignInState extends State<SignIn> {
                                                 colorCodes.toastSuccess,
                                             textColor: colorCodes.insideText,
                                             fontSize: 16.0);
-                                        Navigator.pushReplacement(
-                                            context,
-                                            new MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DashboardAdmin()));
+                                        
                                       } else {
                                         Fluttertoast.showToast(
-                                            msg: "Email or Password incorrect!",
+                                            msg:
+                                                "Something went wrong please try again!",
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
@@ -223,37 +172,12 @@ class _SignInState extends State<SignIn> {
                                   }
                                 },
                                 child: Text(
-                                  "SIGN IN",
+                                  "EDIT",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                       color: colorCodes.insideText),
                                 )),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (context) => SignUp()));
-                                },
-                                child: Text(
-                                  "Register here?",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
-                                      color: colorCodes.linkText),
-                                ),
-                              )
-                            ],
                           ),
                         ),
                       ],

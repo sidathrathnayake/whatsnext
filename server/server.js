@@ -12,6 +12,16 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+//Routes
+const user_routes = require('./routes/user_route');
+const category_routes = require('./routes/category_route');
+const questions_routes = require('./routes/questions_route');
+
+//Routes middleware
+app.use(user_routes);
+app.use(category_routes);
+app.use(questions_routes);
+
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT , () => {

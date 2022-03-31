@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/SignIn.dart';
+import 'package:mobile/signIn.dart';
+import 'package:mobile/services/service_user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobile/variables/variables.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -8,7 +12,7 @@ class SignUp extends StatefulWidget {
   _SignUpState createState() => _SignUpState();
 }
 
-Color textfieldcolor = Colors.black;
+ColorCodes colorCodes = new ColorCodes();
 
 var userEmail, userPassword, userConfirmPassword;
 
@@ -24,7 +28,7 @@ class _SignUpState extends State<SignUp> {
         elevation: 0,
         centerTitle: true,
         title: const Text(
-          'Sign up',
+          'SIGN UP',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
@@ -76,7 +80,7 @@ class _SignUpState extends State<SignUp> {
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
                                       fontSize: 14,
-                                      color: Colors.black54),
+                                      color: colorCodes.linkText),
                                 ),
                               )
                             ],
@@ -100,30 +104,30 @@ class _SignUpState extends State<SignUp> {
                                 return 'Please enter valid email!';
                               }
                             },
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: colorCodes.textFieldColor),
                             decoration: InputDecoration(
                               prefixIcon: Image.asset("icons/email.png"),
                               labelText: "Email",
                               labelStyle: TextStyle(
-                                  fontSize: 16, color: textfieldcolor),
-                              fillColor: Colors.black12,
+                                  fontSize: 16, color: colorCodes.textFieldColor),
+                              fillColor: colorCodes.fillColor,
                               filled: true,
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.teal,
+                                  color: colorCodes.focusBorder,
                                 ),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.deepOrange,
+                                  color: colorCodes.errorBorder,
                                 ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.deepOrange,
+                                  color: colorCodes.errorBorder,
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -153,30 +157,30 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             obscureText: true,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: colorCodes.textFieldColor),
                             decoration: InputDecoration(
                               prefixIcon: Image.asset("icons/password.png"),
                               labelText: "Password",
                               labelStyle: TextStyle(
-                                  fontSize: 16, color: textfieldcolor),
-                              fillColor: Colors.black12,
+                                  fontSize: 16, color: colorCodes.textFieldColor),
+                              fillColor: colorCodes.fillColor,
                               filled: true,
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.teal,
+                                  color: colorCodes.focusBorder,
                                 ),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.deepOrange,
+                                  color: colorCodes.errorBorder,
                                 ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.deepOrange,
+                                  color: colorCodes.errorBorder,
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -207,31 +211,31 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             obscureText: true,
-                            style: TextStyle(color: Colors.black),
+                            style: TextStyle(color: colorCodes.textFieldColor),
                             decoration: InputDecoration(
                               prefixIcon:
                                   Image.asset("icons/confirmpassword.png"),
                               labelText: "Confirm Password",
                               labelStyle: TextStyle(
-                                  fontSize: 16, color: textfieldcolor),
-                              fillColor: Colors.black12,
+                                  fontSize: 16, color: colorCodes.textFieldColor),
+                              fillColor: colorCodes.fillColor,
                               filled: true,
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.teal,
+                                  color: colorCodes.focusBorder,
                                 ),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.deepOrange,
+                                  color: colorCodes.errorBorder,
                                 ),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                                 borderSide: BorderSide(
-                                  color: Colors.deepOrange,
+                                  color: colorCodes.errorBorder,
                                 ),
                               ),
                               enabledBorder: OutlineInputBorder(
@@ -250,58 +254,53 @@ class _SignUpState extends State<SignUp> {
                             height: 60,
                             width: 400,
                             child: FlatButton(
-                                color: Colors.teal,
+                                color: colorCodes.focusBorder,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () {
-                                  // if (_formKey.currentState!.validate()) {
-                                  //   Navigator.push(
-                                  //           context,
-                                  //           new MaterialPageRoute(
-                                  //               builder: (context) =>
-                                  //                   Signin()));
-                                  //   Service()
-                                  //       .register(
-                                  //           userAccType,
-                                  //           userAccNumber,
-                                  //           userIdType,
-                                  //           userIdNumber,
-                                  //           userEmail,
-                                  //           userPhone,
-                                  //           userPassword)
-                                  //       .then((val) {
-                                  //     if (val.data['success']) {
-                                  //       Fluttertoast.showToast(
-                                  //           msg: "Successfully Registered!",
-                                  //           toastLength: Toast.LENGTH_SHORT,
-                                  //           gravity: ToastGravity.BOTTOM,
-                                  //           timeInSecForIosWeb: 1,
-                                  //           backgroundColor: Colors.green,
-                                  //           textColor: Colors.white,
-                                  //           fontSize: 16.0);
+                                  if (_formKey.currentState!.validate()) {
+                                    Navigator.push(
+                                            context,
+                                            new MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignIn()));
+                                    User()
+                                        .register(
+                                            userEmail,
+                                            userPassword)
+                                        .then((val) {
+                                      if (val.data['success']) {
+                                        Fluttertoast.showToast(
+                                            msg: "Successfully Registered!",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: colorCodes.toastSuccess,
+                                            textColor: colorCodes.insideText,
+                                            fontSize: 16.0);
 
-                                  //     } else {
-                                  //       Fluttertoast.showToast(
-                                  //           msg:
-                                  //               "Something went wrong.Please try again!",
-                                  //           toastLength: Toast.LENGTH_SHORT,
-                                  //           gravity: ToastGravity.BOTTOM,
-                                  //           timeInSecForIosWeb: 1,
-                                  //           backgroundColor: Colors.red,
-                                  //           textColor: Colors.white,
-                                  //           fontSize: 16.0);
-                                  //     }
-                                  //   });
-                                  // } else {
-                                  //   print("Error");
-                                  // }
+                                      } else {
+                                        Fluttertoast.showToast(
+                                            msg:
+                                                "Something went wrong.Please try again!",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: colorCodes.toastError,
+                                            textColor: colorCodes.insideText,
+                                            fontSize: 16.0);
+                                      }
+                                    });
+                                  } else {
+                                    print("Error");
+                                  }
                                 },
                                 child: Text(
-                                  "Sign up",
+                                  "SIGN UP",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
-                                      color: Colors.white),
+                                      color: colorCodes.insideText),
                                 )),
                           ),
                         ),
