@@ -6,7 +6,11 @@ const Schema = mongoose.Schema;
 
 /**Creating a researchPaper class with attributes*/
 const userSubmission = new Schema({
-    question_category: {
+    categoryName: {
+        type: String,
+        required: true,
+    },
+    userEmail: {
         type: String,
         required: true,
     },

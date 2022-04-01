@@ -4,20 +4,9 @@ const { response } = require("express");
 /*importing model class  */
 const User = require("../models/user_input_model");
 
-/**Insertion method for inserting a category */
-// router.post("/user/insert", (req,res) => {
-//     const newCat = new User({
-//         userName : req.body.userName,
-//     });
-//     console.log(newCat);
-//     newCat
-//         .save()
-//         .then(() => res.json("New User Added!"))
-//         .catch((err) => res.status(400).json(`Error: ${err}`));
-// })
-
 router.route("/insert").post((req, res) => {
-    const question_category = req.body.question_category;
+    const categoryName = req.body.categoryName;
+    const userEmail = req.body.userEmail;
     const question_1 = req.body.question_1;
     const question_2 = req.body.question_2;
     const question_3 = req.body.question_3;
@@ -25,7 +14,8 @@ router.route("/insert").post((req, res) => {
     const question_5 = req.body.question_5;
 
     const newProduct = new User({
-        question_category,
+        categoryName,
+        userEmail,
         question_1,
         question_2,
         question_3,
@@ -34,7 +24,7 @@ router.route("/insert").post((req, res) => {
     })
     newProduct.save().then(() => {
         res.json("User Questions Added")
-        res.json(question_1 + question_2 + question_3 + 6 + question_4, question_5)
+        res.json(newProduct)
     }).catch((err) => {
         console.log(err);
     })
@@ -51,15 +41,18 @@ router.route("/").get((req, res) => {
         })
 })
 
-router.route("/:id").get(async (req, res) => {
-    let userId = req.params.id;
+router.route("/get/:userEmail").get(async (req, res) => {
+    let userEmail = req.params.userEmail;
 
-    const user = await User.findById(userId)
+    const user = await User.findOne({ userEmail })
         .then((product) => {
-            res.status(200).send({ status: "User Fetched", product });
+            // res.status(200).send({ status: "User Fetched" });
+            res.json(product)
+
         }).catch((err) => {
             console.log(err.message);
-            res.status(500).send({ status: "Error with getting the category", error: err.message });
+            // res.status(500).send({ status: "Error with getting the category", error: err.message });
+            res.json(err);
         })
 })
 
@@ -74,7 +67,7 @@ router.route("/update/:id").put(async (req, res) => {
 
             cat
                 .save()
-                .then(() => res.json("User Updated!"))
+                .then(() => res.json("User Questions Updated!"))
                 .catch((err) => res.status(400).json(`Error: ${err}`));
         })
         .catch((err) => res.status(400).json(`Error: ${err}`));
