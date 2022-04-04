@@ -7,33 +7,40 @@ import 'package:get/get.dart';
 //import 'package:mobile/dashboard.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/categoryList.dart';
+import 'package:mobile/user_questions/user_view_profile.dart';
 
 class UserQuestionAnswer {
   Dio dio = new Dio();
 
-  String getCategoriesUrl = "http://10.0.2.2:5000/category/categories";
+  String getCategoriesUrl = "http://192.168.8.103:5000/category/categories";
 
-  // categoryadd(categoryName) async {
-  //   try {
-  //       await dio.post('http://10.0.2.2:5000/category/categoryadd',
-  //         data: {
-  //           'categoryName': categoryName,
-  //         },
-  //         options: Options(contentType: Headers.jsonContentType));
+  userInputAdd(categoryName, userEmail, question_1, question_2, question_3, question_4, question_5) async {
+    try {
+        await dio.post('http://192.168.8.103:5000/user-question/insert',
+          data: {
+            'categoryName': categoryName,
+            'userEmail': userEmail,
+            'question_1': question_1,
+            'question_2': question_2,
+            'question_3': question_3,
+            'question_4': question_4,
+            'question_5': question_5,
+          },
+          options: Options(contentType: Headers.jsonContentType));
 
-  //       return Get.off(() => CategoryList());
+        return Get.off(() => UserViewProfile());
 
-  //   } on DioError catch (e) {
-  //     Fluttertoast.showToast(
-  //         msg: 'Unable to add!',
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //   }
-  // }
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: 'Unable to add!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   // categoryedit(id, categoryName) async {
   //   try {

@@ -22,6 +22,8 @@ router.route("/insert").post((req, res) => {
         question_4,
         question_5,
     })
+    console.log(newProduct);
+    
     newProduct.save().then(() => {
         res.json("User Questions Added")
         res.json(newProduct)
@@ -46,6 +48,22 @@ router.route("/get/:userEmail").get(async (req, res) => {
 
     // const user = await User.findOne({ userEmail })
     const user = await User.find({userEmail})
+        .then((product) => {
+            // res.status(200).send({ status: "User Fetched" });
+            res.json(product)
+
+        }).catch((err) => {
+            console.log(err.message);
+            // res.status(500).send({ status: "Error with getting the category", error: err.message });
+            res.json(err);
+        })
+})
+
+router.route("/get-one/:userEmail").get(async (req, res) => {
+    let userEmail = req.params.userEmail;
+
+    const user = await User.findOne({ userEmail })
+    // const user = await User.find({userEmail})
         .then((product) => {
             // res.status(200).send({ status: "User Fetched" });
             res.json(product)

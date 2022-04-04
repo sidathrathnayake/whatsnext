@@ -43,10 +43,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       // home: SignUp(),
-      // home: UserAnswerSubmit(),
+      home: UserAnswerSubmit(),
       // home: UserViewProfile()
       // home: UserViewProfile(),
-      home: UserList(),
+      // home: UserList(),
     );
   }
 }
