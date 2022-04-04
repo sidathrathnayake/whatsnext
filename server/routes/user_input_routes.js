@@ -31,7 +31,7 @@ router.route("/insert").post((req, res) => {
 
 })
 
-router.route("/").get((req, res) => {
+router.route("/get").get((req, res) => {
     User.find()
         .then((product) => {
             res.json(product)
@@ -44,7 +44,8 @@ router.route("/").get((req, res) => {
 router.route("/get/:userEmail").get(async (req, res) => {
     let userEmail = req.params.userEmail;
 
-    const user = await User.findOne({ userEmail })
+    // const user = await User.findOne({ userEmail })
+    const user = await User.find({userEmail})
         .then((product) => {
             // res.status(200).send({ status: "User Fetched" });
             res.json(product)

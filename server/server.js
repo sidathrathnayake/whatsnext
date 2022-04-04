@@ -34,4 +34,4 @@ process.on("unhandledRejection", (err, promise) => {
 });
 
 const userRouter = require("./routes/user_input_routes");
-app.use("/user",userRouter);
+app.use("/user-question",userRouter);
