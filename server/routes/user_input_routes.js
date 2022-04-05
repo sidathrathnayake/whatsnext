@@ -22,6 +22,8 @@ router.route("/insert").post((req, res) => {
         question_4,
         question_5,
     })
+    console.log(newProduct);
+    
     newProduct.save().then(() => {
         res.json("User Questions Added")
         res.json(newProduct)
@@ -31,7 +33,7 @@ router.route("/insert").post((req, res) => {
 
 })
 
-router.route("/").get((req, res) => {
+router.route("/get").get((req, res) => {
     User.find()
         .then((product) => {
             res.json(product)
@@ -44,7 +46,8 @@ router.route("/").get((req, res) => {
 router.route("/get/:userEmail").get(async (req, res) => {
     let userEmail = req.params.userEmail;
 
-    const user = await User.findOne({ userEmail })
+    // const user = await User.findOne({ userEmail })
+    const user = await User.find({userEmail})
         .then((product) => {
             // res.status(200).send({ status: "User Fetched" });
             res.json(product)
@@ -54,6 +57,39 @@ router.route("/get/:userEmail").get(async (req, res) => {
             // res.status(500).send({ status: "Error with getting the category", error: err.message });
             res.json(err);
         })
+})
+
+router.route("/get-one/:userEmail").get(async (req, res) => {
+    let userEmail = req.params.userEmail;
+
+    const user = await User.findOne({ userEmail })
+    // const user = await User.find({userEmail})
+        .then((product) => {
+            // res.status(200).send({ status: "User Fetched" });
+            res.json(product)
+
+        }).catch((err) => {
+            console.log(err.message);
+            // res.status(500).send({ status: "Error with getting the category", error: err.message });
+            res.json(err);
+        })
+})
+
+router.route("/update/:userEmail").put(async (req, res) => {
+    User.findOne({ "userEmail": req.params.userEmail })
+        .then((cat) => {
+            cat.question_1 = req.body.question_1;
+            cat.question_2 = req.body.question_2;
+            cat.question_3 = req.body.question_3;
+            cat.question_4 = req.body.question_4;
+            cat.question_5 = req.body.question_5;
+
+            cat
+                .save()
+                .then(() => res.json("User Questions Updated!"))
+                .catch((err) => res.status(400).json(`Error: ${err}`));
+        })
+        .catch((err) => res.status(400).json(`Error: ${err}`));
 })
 
 router.route("/update/:id").put(async (req, res) => {

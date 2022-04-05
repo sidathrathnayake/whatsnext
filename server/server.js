@@ -38,3 +38,4 @@ app.use("/user",userRouter);
 
 const problemRouter = require("./routes/problem_routes");
 app.use("/problem",problemRouter);
+app.use("/user-question",userRouter);

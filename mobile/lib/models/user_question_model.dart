@@ -33,6 +33,10 @@ class UserQuestion {
       question_5: json['question_5'],
     );
   }
+
+  // get length => null;
+
+  // get length => null;
 }
 
 // class InventryUpdate {
