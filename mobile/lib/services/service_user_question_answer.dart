@@ -14,9 +14,10 @@ class UserQuestionAnswer {
 
   String getCategoriesUrl = "http://192.168.8.103:5000/category/categories";
 
-  userInputAdd(categoryName, userEmail, question_1, question_2, question_3, question_4, question_5) async {
+  userInputAdd(categoryName, userEmail, question_1, question_2, question_3,
+      question_4, question_5) async {
     try {
-        await dio.post('http://192.168.8.103:5000/user-question/insert',
+      await dio.post('http://192.168.8.103:5000/user-question/insert',
           data: {
             'categoryName': categoryName,
             'userEmail': userEmail,
@@ -28,8 +29,7 @@ class UserQuestionAnswer {
           },
           options: Options(contentType: Headers.jsonContentType));
 
-        return Get.off(() => UserViewProfile());
-
+      return Get.off(() => UserViewProfile());
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to add!',
@@ -42,29 +42,43 @@ class UserQuestionAnswer {
     }
   }
 
-  // categoryedit(id, categoryName) async {
-  //   try {
-  //     await dio.put('http://10.0.2.2:5000/category/updatecategory/$id',
-  //         data: {
-  //           '_id': id,
-  //           'categoryName': categoryName,
-  //         },
-  //         options: Options(contentType: Headers.jsonContentType));
+  userInputEdit(question_1, question_2, question_3,
+      question_4, question_5) async {
+    try {
+      await dio.put(
+          'http://localhost:5000/user-question/update/a@gmail.com',
+          data: {
+            // 'categoryName': categoryName,
+            // 'userEmail': userEmail,
+            'question_1': question_1,
+            'question_2': question_2,
+            'question_3': question_3,
+            'question_4': question_4,
+            'question_5': question_5,
+          },
+          options: Options(contentType: Headers.jsonContentType));
 
-  //     return Get.off(() => CategoryList());
-      
-  //   } on DioError catch (e) {
-  //     Fluttertoast.showToast(
-  //         msg: 'Unable to update!',
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.BOTTOM,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.red,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //   }
-  // }
+      return Get.off(() => UserViewProfile());
+    } on DioError catch (e) {
+      Fluttertoast.showToast(
+          msg: 'Unable to update!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
+  Future userInputGetSingle() async {
+    try {
+    await http
+          .get(Uri.parse('http://192.168.8.103:5000/user-question/get-one/a@gmail.com'));
+    } catch (e) {
+      print(e);
+    }
+  }
   // categorydelete(id) async {
   //   try {
   //     await dio.delete('http://10.0.2.2:5000/category/deletecategory/$id',
@@ -74,7 +88,7 @@ class UserQuestionAnswer {
   //         options: Options(contentType: Headers.jsonContentType));
 
   //     return Get.off(() => CategoryList());
-      
+
   //   } on DioError catch (e) {
   //     Fluttertoast.showToast(
   //         msg: 'Unable to delete!',

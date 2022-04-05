@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:mobile/models/user_question_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/services/service_user_question_answer.dart';
+import 'package:mobile/user_questions/edit_user_answer_submit.dart';
 
 class UserViewProfile extends StatefulWidget {
   const UserViewProfile({Key? key}) : super(key: key);
@@ -57,10 +59,12 @@ class _UserViewProfileState extends State<UserViewProfile> {
     //   // then throw an exception.
     //   throw Exception('Failed to load album');
     // }
-    final url = Uri.parse("http://192.168.8.101:5000/user-question/get/b@gmail.com");
+    final url =
+        Uri.parse("http://localhost:5000/user-question/get/a@gmail.com");
     final response = await http.get(url);
     if (response.statusCode == 200) {
       List listData = json.decode(response.body);
+      print(listData);
       return listData
           .map((listData) => new UserQuestion.fromJson(listData))
           .toList();
@@ -159,6 +163,9 @@ class _UserViewProfileState extends State<UserViewProfile> {
                                     //               update_inventory: snapshot
                                     //                   .data![currentIndex])),
                                     // );
+                                    // editUserInput(currentIndex);
+                                    editUserInput(
+                                        snapshot.data![currentIndex], context);
                                   },
                                   child: Text(
                                     "Edit",
@@ -255,4 +262,29 @@ class _UserViewProfileState extends State<UserViewProfile> {
           }),
     );
   }
+}
+
+editUserInput(val, context) {
+  var id = val.id;
+  var categoryName = val.categoryName;
+  var userEmail = val.userEmail;
+  var question_1 = val.question_1;
+  var question_2 = val.question_2;
+  var question_3 = val.question_3;
+  var question_4 = val.question_4;
+  var question_5 = val.question_5;
+
+  print(userEmail);
+  Navigator.push(
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new EditUserAnswerSubmit(
+              id: id,
+              categoryName: categoryName,
+              userEmail: userEmail,
+              question_1: question_1,
+              question_2: question_2,
+              question_3: question_3,
+              question_4: question_4,
+              question_5: question_5)));
 }

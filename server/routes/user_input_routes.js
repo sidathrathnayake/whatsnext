@@ -75,6 +75,23 @@ router.route("/get-one/:userEmail").get(async (req, res) => {
         })
 })
 
+router.route("/update/:userEmail").put(async (req, res) => {
+    User.findOne({ "userEmail": req.params.userEmail })
+        .then((cat) => {
+            cat.question_1 = req.body.question_1;
+            cat.question_2 = req.body.question_2;
+            cat.question_3 = req.body.question_3;
+            cat.question_4 = req.body.question_4;
+            cat.question_5 = req.body.question_5;
+
+            cat
+                .save()
+                .then(() => res.json("User Questions Updated!"))
+                .catch((err) => res.status(400).json(`Error: ${err}`));
+        })
+        .catch((err) => res.status(400).json(`Error: ${err}`));
+})
+
 router.route("/update/:id").put(async (req, res) => {
     User.findOne({ "id": req.params.id })
         .then((cat) => {

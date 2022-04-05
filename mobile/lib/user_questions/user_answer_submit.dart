@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile/SignIn.dart';
 import 'package:mobile/services/service_user_question_answer.dart';
 import 'package:mobile/user_questions/sample1.dart';
+import 'package:http/http.dart' as http;
 
 class UserAnswerSubmit extends StatefulWidget {
   const UserAnswerSubmit({Key? key}) : super(key: key);
@@ -18,6 +20,8 @@ var userEmail, userPassword, userConfirmPassword;
 class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
   final _formKey = GlobalKey<FormState>();
 
+  List questionAnswers = [];
+
   var categoryName = 'Sports',
       userEmail = 'a@gmail.com',
       question_1,
@@ -26,11 +30,11 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
       question_4,
       question_5;
 
-  List<String> question_answers_01 = ['answer 1', 'answer 2'];
-  List<String> question_answers_02 = ['answer 1', 'answer 2'];
-  List<String> question_answers_03 = ['answer 1', 'answer 2'];
-  List<String> question_answers_04 = ['answer 1', 'answer 2'];
-  List<String> question_answers_05 = ['answer 1', 'answer 2'];
+  List question_answers_01 = ['answer 1', 'answer 2'];
+  List question_answers_02 = ['answer 1', 'answer 2'];
+  List question_answers_03 = ['answer 1', 'answer 2'];
+  List question_answers_04 = ['answer 1', 'answer 2'];
+  List question_answers_05 = ['answer 1', 'answer 2'];
 
   String? selectQuestion01Type;
   String? selectQuestion02Type;
@@ -44,7 +48,57 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
   String user_question_4 = 'Question 04';
   String user_question_5 = 'Question 05';
 
-  // print();
+  String question_01_id = '';
+  String question_02_id = '';
+  String question_03_id = '';
+  String question_04_id = '';
+  String question_05_id = '';
+
+  getQuestionAnswers() async {
+    // var myUrl = "http://1.0.2.2:5000/category/categories";
+    var myUrl = "http://localhost:5000/question/getQuestions/Sports";
+
+    var response = await http.get(Uri.parse(myUrl));
+    if (response.statusCode == 200) {
+      var items = json.decode(response.body);
+      print(items[0]['questionBody']);
+      print(items[0]['questionAnswers']);
+      setState(() {
+        questionAnswers = items;
+
+        user_question_1 = items[0]['questionBody'];
+        user_question_2 = items[1]['questionBody'];
+        user_question_3 = items[2]['questionBody'];
+        user_question_4 = items[3]['questionBody'];
+        user_question_5 = items[4]['questionBody'];
+
+        question_answers_01 = items[0]['questionAnswers'];
+        question_answers_02 = items[1]['questionAnswers'];
+        question_answers_03 = items[2]['questionAnswers'];
+        question_answers_04 = items[3]['questionAnswers'];
+        question_answers_05 = items[4]['questionAnswers'];
+
+        question_01_id = items[0]['_id'];
+        question_02_id = items[1]['_id'];
+        question_03_id = items[2]['_id'];
+        question_04_id = items[3]['_id'];
+        question_05_id = items[4]['_id'];
+        
+      });
+    } else {
+      setState(() {
+        questionAnswers = [];
+      });
+    }
+
+    return json.decode(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getQuestionAnswers();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +192,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                               setState(() {
                                 selectQuestion01Type = newValue as String?;
                                 question_1 = {
-                                  'id': 1,
-                                  'question1': user_question_1,
-                                  'answer1': selectQuestion01Type
+                                  'id': question_01_id,
+                                  'question': user_question_1,
+                                  'answer': selectQuestion01Type
                                 };
                               });
                             },
@@ -219,9 +273,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                               setState(() {
                                 selectQuestion02Type = newValue as String?;
                                 question_2 = {
-                                  'id': 2,
-                                  'question2': user_question_2,
-                                  'answer2': selectQuestion02Type
+                                  'id': question_02_id,
+                                  'question': user_question_2,
+                                  'answer': selectQuestion02Type
                                 };
                               });
                             },
@@ -300,9 +354,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                               setState(() {
                                 selectQuestion03Type = newValue as String?;
                                 question_3 = {
-                                  'id': 3,
-                                  'question3': user_question_3,
-                                  'answer3': selectQuestion03Type
+                                  'id': question_03_id,
+                                  'question': user_question_3,
+                                  'answer': selectQuestion03Type
                                 };
                               });
                             },
@@ -381,9 +435,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                               setState(() {
                                 selectQuestion04Type = newValue as String?;
                                 question_4 = {
-                                  'id': 4,
-                                  'question4': user_question_4,
-                                  'answer4': selectQuestion04Type
+                                  'id': question_04_id,
+                                  'question': user_question_4,
+                                  'answer': selectQuestion04Type
                                 };
                               });
                             },
@@ -462,9 +516,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                               setState(() {
                                 selectQuestion05Type = newValue as String?;
                                 question_5 = {
-                                  'id': 5,
-                                  'question5': user_question_5,
-                                  'answer5': selectQuestion05Type
+                                  'id': question_05_id,
+                                  'question': user_question_5,
+                                  'answer': selectQuestion05Type
                                 };
                               });
                             },
