@@ -35,3 +35,6 @@ process.on("unhandledRejection", (err, promise) => {
 
 const userRouter = require("./routes/user_input_routes");
 app.use("/user",userRouter);
+
+const problemRouter = require("./routes/problem_routes");
+app.use("/problem",problemRouter);
