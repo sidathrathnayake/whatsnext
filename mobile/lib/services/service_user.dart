@@ -92,21 +92,27 @@ class User {
 
   deleteUser(id) async {
     try {
-      await dio.delete('http://10.0.2.2:5000/user/delete/${id}',
-          data: {
-            '_id': id,
-          },
+      await dio.delete('http://localhost:5000/user/delete/$id',
           options: Options(contentType: Headers.jsonContentType));
 
-      return Get.off(() => UserList());
+      Fluttertoast.showToast(
+          msg: 'Deleting User Successfull!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          webBgColor:'#808080',
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+        return Get.off(() => UserList());
       
     } on DioError catch (e) {
       Fluttertoast.showToast(
-          msg: 'Unable to delete!',
+          msg: 'Delete User Failed!',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          timeInSecForIosWeb: 3,
+          webBgColor:'#808080',
           textColor: Colors.white,
           fontSize: 16.0);
     }

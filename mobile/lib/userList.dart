@@ -25,7 +25,7 @@ class _UserListState extends State<UserList> {
 
   getUsers() async {
     // var myUrl = "http://1.0.2.2:5000/category/categories";
-    var myUrl = "http://192.168.8.101:5000/user/users";
+    var myUrl = "http://localhost:5000/user/users";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {
@@ -64,17 +64,6 @@ class _UserListState extends State<UserList> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new CategoryAdd()));
-              },
-              icon: Image.asset('icons/add.png'),
-            )
-          ],
         ),
         body: getBody());
   }
@@ -92,15 +81,19 @@ class _UserListState extends State<UserList> {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        // padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
         child: ElevatedButton(
           onPressed: () {
             // editCategory(index);
           },
           child: ListTile(
             title: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       userEmail.toString(),
@@ -111,12 +104,16 @@ class _UserListState extends State<UserList> {
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    print(deleteUser(index));
-                    // deleteUser(index);
-                  },
-                  icon: Image.asset('icons/delete.png'),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // deleteUser(index);
+                        deletePopUp(index);
+                      },
+                      icon: Image.asset('icons/delete.png'),
+                    ),
+                  ],
                 )
               ],
             ),
@@ -126,18 +123,44 @@ class _UserListState extends State<UserList> {
     );
   }
 
-  // editCategory(index) {
-  //   var id = index['_id'].toString();
-  //   var categoryName = index['categoryName'].toString();
-  //   Navigator.push(
-  //       context,
-  //       new MaterialPageRoute(
-  //           builder: (context) =>
-  //               new CategoryEdit(id: id, categoryName: categoryName)));
-  // }
+  Future<void> deletePopUp(index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Delete'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Text('Are you want to delete ' + index['userEmail'] + ' ?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("Confirm"),
+              onPressed: () {
+                deleteUser(index);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   deleteUser(index) {
+    print("delete");
     var id = index['_id'].toString();
     User().deleteUser(id);
   }
-}
+
+} 

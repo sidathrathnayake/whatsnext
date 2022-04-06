@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobile/SignIn.dart';
 import 'package:mobile/services/service_user_question_answer.dart';
-import 'package:mobile/user_questions/sample1.dart';
 import 'package:http/http.dart' as http;
 
 class UserAnswerSubmit extends StatefulWidget {

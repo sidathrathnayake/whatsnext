@@ -14,6 +14,8 @@ class UserViewProfile extends StatefulWidget {
 }
 
 class _UserViewProfileState extends State<UserViewProfile> {
+  var email;
+  // var email1;
   // late Future<UserQuestion> futureAlbum;
   // List userQuestionAnswer = [];
   // bool isLoading = false;
@@ -64,7 +66,10 @@ class _UserViewProfileState extends State<UserViewProfile> {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       List listData = json.decode(response.body);
+      email = listData[0]['userEmail'];
       print(listData);
+      print(email[0]);
+
       return listData
           .map((listData) => new UserQuestion.fromJson(listData))
           .toList();
@@ -85,7 +90,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
   @override
   void initState() {
     super.initState();
-    fetchAlbum();
+    fetchAlbum();    
   }
 
   @override
@@ -95,8 +100,12 @@ class _UserViewProfileState extends State<UserViewProfile> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
+        // leading: CircleAvatar(
+        //   backgroundColor: Colors.brown.shade800,
+        //   child: Text(),
+        // ),
         title: Text(
-          "View Your Profile",
+          "User Profile",
         ),
       ),
       body: FutureBuilder<List<UserQuestion>>(
@@ -115,147 +124,193 @@ class _UserViewProfileState extends State<UserViewProfile> {
                   // itemCount: 1,
                   padding: EdgeInsets.all(10),
                   itemBuilder: (BuildContext context, int currentIndex) {
-                    return Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      height: 160,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: <Widget>[
-                          Container(
-                            height: 136,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.teal,
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(0, 15),
-                                    blurRadius: 27,
-                                    color: Colors.black12)
-                              ],
-                            ),
-                            child: Container(
-                              margin: EdgeInsets.only(right: 10),
-                              decoration: BoxDecoration(
-                                  // color: Colors.teal.shade50,
-                                  color: Colors.teal.shade200,
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
+                    return Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          height: 160,
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+                              Container(
+                                height: 136,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.teal,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(0, 15),
+                                        blurRadius: 27,
+                                        color: Colors.black12)
+                                  ],
+                                ),
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 10),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.teal.shade50,
+                                      color: Colors.teal.shade200,
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                              ),
+                              Positioned(
+                                top: 40,
+                                right: 0,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  height: 35,
+                                  width: 150,
+                                  child: FlatButton(
+                                      color: Colors.teal,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0)),
+                                      onPressed: () {
+                                        editUserInput(
+                                            snapshot.data![currentIndex],
+                                            context);
+                                      },
+                                      child: Text(
+                                        "Edit",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: Colors.white),
+                                      )),
+                                ),
+                              ),
+                              Positioned(
+                                top: 110,
+                                right: 0,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  height: 35,
+                                  width: 150,
+                                  child: FlatButton(
+                                      color: Colors.teal,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0)),
+                                      onPressed: () => showDialog<String>(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                              title: Text(
+                                                  // snapshot.data![currentIndex].item_name,
+                                                  'Sports Category'),
+                                              content: const Text(
+                                                  'Do you want to delete this? '),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'Cancel'),
+                                                  child: const Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  // onPressed: () =>
+                                                  //     //delete();
+                                                  //     Navigator.pop(context, 'OK'),
+                                                  onPressed: () {
+                                                    delete(snapshot
+                                                        .data![currentIndex]
+                                                        .id);
+                                                    Navigator.pop(
+                                                        context, 'OK');
+                                                  },
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                      child: Text(
+                                        "Delete",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                            color: Colors.white),
+                                      )),
+                                ),
+                              ),
+                              Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  child: SizedBox(
+                                    height: 136,
+                                    width: size.width - 200,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Text(
+                                            // 'Sports Category',
+                                            // snapshot.data!.categoryName,
+                                            snapshot.data![currentIndex]
+                                                .categoryName,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 30,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  )),
+                            ],
                           ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(left: 22.0),
                               height: 50,
-                              width: 200,
+                              width: 120,
                               child: FlatButton(
-                                  color: Colors.blue.shade600,
+                                  color: Colors.teal,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
-                                          BorderRadius.circular(30.0)),
+                                          BorderRadius.circular(10.0)),
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           EditInventory(
-                                    //               update_inventory: snapshot
-                                    //                   .data![currentIndex])),
-                                    // );
-                                    // editUserInput(currentIndex);
-                                    editUserInput(
+                                    clickProblems(
                                         snapshot.data![currentIndex], context);
                                   },
                                   child: Text(
-                                    "Edit",
+                                    "Problems",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
                                         color: Colors.white),
                                   )),
                             ),
-                          ),
-                          Positioned(
-                            top: 90,
-                            right: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                            Container(
+                              margin: const EdgeInsets.only(left: 83.0),
                               height: 50,
-                              width: 200,
+                              width: 120,
                               child: FlatButton(
-                                  color: Colors.blue.shade600,
+                                  color: Colors.teal,
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  onPressed: () => showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                          title: Text(
-                                              // snapshot.data![currentIndex].item_name,
-                                              'Sports Category'),
-                                          content: const Text(
-                                              'Do you want to delete this? '),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  context, 'Cancel'),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              // onPressed: () =>
-                                              //     //delete();
-                                              //     Navigator.pop(context, 'OK'),
-                                              onPressed: () {
-                                                delete(snapshot
-                                                    .data![currentIndex].id);
-                                                Navigator.pop(context, 'OK');
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                          BorderRadius.circular(10.0)),
+                                  onPressed: () {
+                                    clickFeed(
+                                        snapshot.data![currentIndex], context);
+                                  },
                                   child: Text(
-                                    "Delete",
+                                    "Feed",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
                                         color: Colors.white),
                                   )),
                             ),
-                          ),
-                          Positioned(
-                              bottom: 0,
-                              left: 0,
-                              child: SizedBox(
-                                height: 136,
-                                width: size.width - 200,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Spacer(),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Text(
-                                        // 'Sports Category',
-                                        // snapshot.data!.categoryName,
-                                        snapshot
-                                            .data![currentIndex].categoryName,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    Spacer(),
-                                  ],
-                                ),
-                              ))
-                        ],
-                      ),
+                          ],
+                        )
+                      ],
                     );
                   });
             }
@@ -287,4 +342,40 @@ editUserInput(val, context) {
               question_3: question_3,
               question_4: question_4,
               question_5: question_5)));
+}
+
+clickProblems(val, context) {
+  print(val.id);
+  var question_1 = val.question_1['answer'];
+  var question_2 = val.question_2['answer'];
+  var question_3 = val.question_3['answer'];
+  var question_4 = val.question_4['answer'];
+  var question_5 = val.question_5['answer'];
+
+  var details = [question_1, question_2, question_3, question_4, question_5];
+
+  //  Navigator.push(
+  //     context,
+  //     new MaterialPageRoute(
+  //         builder: (context) => new UserViewProblem(
+  //            details : details,
+  //             )));
+}
+
+clickFeed(val, context) {
+  print(val.id);
+  var question_1 = val.question_1['answer'];
+  var question_2 = val.question_2['answer'];
+  var question_3 = val.question_3['answer'];
+  var question_4 = val.question_4['answer'];
+  var question_5 = val.question_5['answer'];
+
+  var details = [question_1, question_2, question_3, question_4, question_5];
+
+  //  Navigator.push(
+  //     context,
+  //     new MaterialPageRoute(
+  //         builder: (context) => new UserViewProblem(
+  //            details : details,
+  //             )));
 }

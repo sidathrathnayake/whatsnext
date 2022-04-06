@@ -14,8 +14,6 @@ import 'package:mobile/questionsAdd.dart';
 import 'package:mobile/signup.dart';
 import 'package:mobile/userList.dart';
 import 'package:mobile/user_questions/user_answer_submit.dart';
-import 'package:mobile/user_questions/user_profile_view.dart';
-import 'package:mobile/user_questions/sample.dart';
 import 'package:mobile/user_questions/user_view_profile.dart';
 import 'package:mobile/problems/add_problem.dart';
 
@@ -48,7 +46,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       // home: SignUp(),
-      home: CategoryList(),
+      // home: UserViewProblem(),
+      // home: UserAnswerSubmit(),
+      home: UserViewProfile(),
+      // home: UserList(),
     );
   }
 }
