@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:mobile/SignIn.dart';
 import 'package:mobile/services/problem_service.dart';
 
 class AddProblem extends StatefulWidget {
   const AddProblem({Key? key}) : super(key: key);
-
+  
   @override
   _AddProblemState createState() => _AddProblemState();
 }
@@ -23,30 +21,25 @@ class _AddProblemState extends State<AddProblem> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        // centerTitle: true,
-        // leading: Icon(Icon.warning_amber,color: Colors.pink,size: 24.0,),
-        title: const Text(
-          'Add Problem',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   // centerTitle: true,
+      //   // leading: Icon(Icon.warning_amber,color: Colors.pink,size: 24.0,),
+      //   title: const Text(
+      //     'Add Problem',
+      //     textAlign: TextAlign.center,
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      //   backgroundColor: Colors.cyan,
+      // ),
       body: SingleChildScrollView(
         child: Container(
           height: size.height,
           child: Column(
             children: [
-              Container(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center),
-              ),
               Expanded(
-                  child: Container(
                 child: Form(
                     key: _formKey,
                     child: Column(
@@ -54,15 +47,28 @@ class _AddProblemState extends State<AddProblem> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 55, 15, 25),
+                          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+                          child: Text(
+                            "ADD PROBLEM",
+                            style: TextStyle(fontSize: 20, color: Colors.teal, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 40, 15, 25),
                           child: TextFormField(
-                            controller:
-                                TextEditingController(text: problemTitle),
+                            controller:TextEditingController(text: null),
                             onChanged: (value) {
                               problemTitle = value;
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Enter the Problem Title';
+                              } else {
+                                return null;
+                              }
+                            },
                             style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
+                            decoration: InputDecoration(                              
                               prefixIcon: Image.asset("icons/title.png"),
                               labelText: "Problem Title",
                               labelStyle: TextStyle(
@@ -89,9 +95,16 @@ class _AddProblemState extends State<AddProblem> {
                           padding: const EdgeInsets.fromLTRB(15, 25, 15, 25),
                           child: TextFormField(
                             controller:
-                                TextEditingController(text: problemLink),
+                                TextEditingController(text: null),
                             onChanged: (value) {
                               problemLink = value;
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Enter the Problem Tags';
+                              } else {
+                                return null;
+                              }
                             },
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -118,14 +131,22 @@ class _AddProblemState extends State<AddProblem> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(15, 25, 15, 25),
+                          padding: const EdgeInsets.fromLTRB(15, 25, 15, 10),
                           child: TextFormField(
-                            controller: TextEditingController(text: tags),
+                            controller: TextEditingController(text: null),
                             onChanged: (value) {
                               tags = [value];
                             },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Enter the Problem Tags';
+                              } else {
+                                return null;
+                              }
+                            },
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
+                              helperText: "Seperate the tags using comma (,)",
                               prefixIcon: Image.asset("icons/tag.png"),
                               labelText: "Tags",
                               labelStyle: TextStyle(
@@ -151,9 +172,16 @@ class _AddProblemState extends State<AddProblem> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(15, 25, 15, 25),
                           child: TextFormField(
-                            controller: TextEditingController(text: category),
+                            controller: TextEditingController(text: null),
                             onChanged: (value) {
                               category = value;
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Enter the Problem Category';
+                              } else {
+                                return null;
+                              }
                             },
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -191,15 +219,17 @@ class _AddProblemState extends State<AddProblem> {
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Problems()
-                                        .addProblem(problemTitle, problemLink,
-                                            tags, category);
+                                    var problemTags = tags;
+                                    tags=null;
+                                    Problems().addProblem(problemTitle,
+                                        problemLink, problemTags, category);
+                                        
                                   } else {
                                     print("Error");
                                   }
                                 },
                                 child: Text(
-                                  "Add Problem",
+                                  "Confirm Add",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
@@ -209,7 +239,7 @@ class _AddProblemState extends State<AddProblem> {
                         ),
                       ],
                     )),
-              ))
+              )
             ],
           ),
         ),

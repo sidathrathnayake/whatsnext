@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile/categoryEdit.dart';
+import 'package:mobile/mainMenu.dart';
+import 'package:mobile/problems/problem_menu.dart';
 import 'package:mobile/problems/user_view_problem.dart';
 import 'package:mobile/problems/view_problem.dart';
 import 'package:mobile/questionsList.dart';
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
       ),
       // home: SignUp(),
-      home: UserViewProblem(),
+      home: CategoryList(),
     );
   }
 }

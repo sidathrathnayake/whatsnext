@@ -50,39 +50,32 @@ class _ViewProblemState extends State<ViewProblem> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          title: const Text(
-            'PROBLEM LIST',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    new MaterialPageRoute(
-                        builder: (context) => new AddProblem()));
-              },
-              icon: Image.asset('icons/add.png'),
-            )
-          ],
-        ),
-        body: getBody());
+    return Scaffold(body: SingleChildScrollView(child: getBody()));
   }
 
   Widget getBody() {
-    return ListView.builder(
-        itemCount: problems.length,
-        itemBuilder: (context, index) {
-          return getCard(problems[index]);
-        });
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 30, 15, 20),
+            child: Text(
+              "VIEW PROBLEMS",
+              style: TextStyle(
+                  fontSize: 20, color: Colors.teal, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: problems.length,
+              itemBuilder: (context, index) {
+                return getCard(problems[index]);
+              })
+        ],
+      ),
+    );
   }
 
   Widget getCard(index) {

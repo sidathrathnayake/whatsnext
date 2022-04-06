@@ -4,9 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:mobile/problems/add_problem.dart';
-import 'package:mobile/problems/view_problem.dart';
+import 'package:mobile/problems/problem_menu.dart';
 
 class Problems {
   Dio dio = new Dio();
@@ -32,7 +31,7 @@ class Problems {
           textColor: Colors.white,
           fontSize: 16.0);
 
-        return Get.off(() => ViewProblem());
+        return Get.off(() => ProblemMenu());
 
     } on DioError catch (e) {
       Fluttertoast.showToast(
@@ -66,7 +65,7 @@ class Problems {
           textColor: Colors.white,
           fontSize: 16.0);
 
-        return Get.off(() => ViewProblem());
+        return Get.off(() => ProblemMenu());
       
     } on DioError catch (e) {
       Fluttertoast.showToast(
@@ -78,31 +77,6 @@ class Problems {
           textColor: Colors.white,
           fontSize: 16.0);
     }
-  }
-
-  Future<List?> getProblems() async {
-    try {
-      final viewUrl = Uri.parse("http://localhost:5000/problem/");
-
-      http.Response response = await http.get(viewUrl, headers: {
-        'Accept': 'application/json',
-      });
-      List listData = jsonDecode(response.body);
-      var dataList = json.decode(response.body);
-      print(dataList);
-      print(listData);
-      // return listData.map((listData) => new UserQuestion.fromJson(listData)).toList();
-    } on HttpException catch (e) {
-      Fluttertoast.showToast(
-          msg: 'Problem Retrieve Failed!',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          webBgColor:'#808080',
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-    return null;
   }
 
   deleteProblem(id) async {
@@ -119,7 +93,7 @@ class Problems {
           textColor: Colors.white,
           fontSize: 16.0);
 
-        return Get.off(() => ViewProblem());
+        return Get.off(() => ProblemMenu());
       
     } on DioError catch (e) {
       Fluttertoast.showToast(

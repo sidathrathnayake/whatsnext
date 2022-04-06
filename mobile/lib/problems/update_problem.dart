@@ -53,6 +53,7 @@ class _UpdateProblemState extends State<UpdateProblem> {
 
           ),
         ),
+        backgroundColor: Colors.teal,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -76,9 +77,7 @@ class _UpdateProblemState extends State<UpdateProblem> {
                           padding: const EdgeInsets.fromLTRB(15, 50, 15, 25),
                           child: TextFormField(
                             controller: TextEditingController(text: id),
-                            onChanged: (value) {
-                              problemTitle = value;
-                            },
+                            readOnly: true,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                               prefixIcon: Image.asset("icons/id.png"),
