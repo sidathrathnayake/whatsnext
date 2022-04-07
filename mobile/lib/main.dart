@@ -48,8 +48,8 @@ class MyApp extends StatelessWidget {
       // home: SignUp(),
       // home: UserViewProblem(),
       // home: UserAnswerSubmit(),
-      // home: UserViewProfile(),
-      home: MainMenu(),
+      home: UserViewProfile(),
+      // home: MainMenu(),
       // home: CategoryList(),
       // home: UserList(),
     );

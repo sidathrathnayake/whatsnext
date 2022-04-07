@@ -9,7 +9,11 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 class UserViewProblem extends StatefulWidget {
-  const UserViewProblem({Key? key}) : super(key: key);
+   var answerTags;
+  UserViewProblem({
+    this.answerTags,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _UserViewProblemState createState() => _UserViewProblemState();
@@ -18,18 +22,23 @@ class UserViewProblem extends StatefulWidget {
 ColorCodes colorCodes = new ColorCodes();
 
 class _UserViewProblemState extends State<UserViewProblem> {
-  // late List data;
-
   List problems = [];
   bool isLoading = false;
+  var answerTag;
+  
+  @override
+  void initState() {
+    super.initState();
+    this.answerTag = widget.answerTags;
+    this.getProblems();
+  }
 
   getProblems() async {
-    var myUrl = "http://192.168.1.101:5000/problem/";
-
+    var myUrl = "http://localhost:5000/problem/get/$answerTag";
+    
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {
-      var items = json.decode(response.body)['problem'];
-      // print(items);
+      var items = json.decode(response.body)['record'];
       setState(() {
         problems = items;
       });
@@ -40,12 +49,6 @@ class _UserViewProblemState extends State<UserViewProblem> {
     }
 
     return json.decode(response.body);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.getProblems();
   }
 
   @override

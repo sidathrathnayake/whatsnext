@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/mainMenu.dart';
 import 'package:mobile/problems/add_problem.dart';
 import 'package:mobile/problems/view_problem.dart';
 
@@ -14,6 +15,12 @@ class ProblemMenu extends StatelessWidget {
         initialIndex: 1,
         child: Scaffold(
           appBar: AppBar(
+            leading: BackButton(onPressed: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new MainMenu()));
+                },),
             bottom: TabBar(
               tabs: [
                 Tab(text:"Insert",icon:Image.asset('icons/addProblem.png')),

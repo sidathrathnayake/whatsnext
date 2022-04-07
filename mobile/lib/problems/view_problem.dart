@@ -23,7 +23,7 @@ class _ViewProblemState extends State<ViewProblem> {
   bool isLoading = false;
 
   getProblems() async {
-    var myUrl = "http://192.168.1.101:5000/problem/";
+    var myUrl = "http://localhost:5000/problem/";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {

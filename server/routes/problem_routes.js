@@ -43,13 +43,14 @@ router.route("/").get((req, res) => {
         })
 })
 
-router.route("/get").get(async (req, res) => {
-    const matchTag = []
-    for (let i = 0; i < req.body.tags.length; i++) {
-        let data = { "tags": req.body.tags[i] }
+router.route("/get/:tags").get(async (req, res) => {
+    const matchTag = [];
+    const anserTags = req.params.tags.replace("[","").replace("]","").toString().split(",");
+    for (let i = 0; i < anserTags.length; i++) {
+        let data = { "tags": anserTags[i].trim() }
         matchTag.push(data);
     }
-
+    
     const problem = await Problem.find({ $or: matchTag })
         .then((record) => {
             res.status(200).send({ status: "Retreived a Problem", record });
