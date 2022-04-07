@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/problems/add_problem.dart';
 import 'package:mobile/problems/update_problem.dart';
 import 'package:mobile/services/problem_service.dart';
 import 'package:mobile/variables/variables.dart';
@@ -17,7 +16,6 @@ class ViewProblem extends StatefulWidget {
 ColorCodes colorCodes = new ColorCodes();
 
 class _ViewProblemState extends State<ViewProblem> {
-  // late List data;
 
   List problems = [];
   bool isLoading = false;
@@ -28,7 +26,6 @@ class _ViewProblemState extends State<ViewProblem> {
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {
       var items = json.decode(response.body)['problem'];
-      // print(items);
       setState(() {
         problems = items;
       });

@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/problems/add_problem.dart';
-import 'package:mobile/problems/update_problem.dart';
-import 'package:mobile/services/problem_service.dart';
 import 'package:mobile/variables/variables.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
