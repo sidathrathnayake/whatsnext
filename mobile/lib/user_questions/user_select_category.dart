@@ -91,11 +91,11 @@ class _UserSelectCategoryState extends State<UserSelectCategory> {
                                 ),
                               ),
                               Positioned(
-                                top: 70,
+                                top: 75,
                                 right: 0,
                                 child: Container(
                                   padding: EdgeInsets.symmetric(horizontal: 20),
-                                  height: 35,
+                                  height: 40,
                                   width: 150,
                                   child: FlatButton(
                                       color: Colors.teal,

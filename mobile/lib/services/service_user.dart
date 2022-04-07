@@ -62,12 +62,12 @@ class User {
   //   }
   // }
 
-  // signout() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   print(prefs.getString('token'));
-  //   prefs.remove('token');
-  //   Get.off(() => SignIn());
-  // }
+  signout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('token'));
+    prefs.remove('token');
+    Get.off(() => SignIn());
+  }
 
   String getCategoriesUrl = "http://10.0.2.2:5000/category/categories";
 

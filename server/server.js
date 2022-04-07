@@ -36,14 +36,11 @@ process.on("unhandledRejection", (err, promise) => {
 const userRouter = require("./routes/user_input_routes");
 app.use("/user",userRouter);
 
-<<<<<<< Updated upstream
 const problemRouter = require("./routes/problem_routes");
 app.use("/problem",problemRouter);
 app.use("/user-question",userRouter);
-=======
 /**
  * Post routes (Dhananjaya)
  * */
 const post = require('./routes/post_routes');
 app.use("/posts",post);
->>>>>>> Stashed changes

@@ -38,16 +38,16 @@ class MyApp extends StatelessWidget {
       // home: SignUp(),
       // home: UserViewProblem(),
       // home: UserAnswerSubmit(),
-      // home: UserViewProfile(),
+      home: UserViewProfile(),
       // home: MainMenu(),
-      //home:UserSelectCategory()
+      // home: UserSelectCategory(),
       // home: CategoryList(),
       // home: UserList(),
-      initialRoute: PostPage.routerName,
-        routes: {
-          PostPage.routerName : (context) => const PostPage(),
-          AddPost.routerName : (context) => const AddPost(),
-        },
+      // initialRoute: PostPage.routerName,
+      //   routes: {
+      //     PostPage.routerName : (context) => const PostPage(),
+      //     AddPost.routerName : (context) => const AddPost(),
+      //   },
     );
   }
 }

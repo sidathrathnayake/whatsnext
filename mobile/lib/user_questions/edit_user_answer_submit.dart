@@ -73,7 +73,7 @@ class _EditUserAnswerSubmitState extends State<EditUserAnswerSubmit> {
 
   getQuestionAnswers() async {
     // var myUrl = "http://1.0.2.2:5000/category/categories";
-    var myUrl = "http://localhost:5000/question/getQuestions/Sports";
+    var myUrl = "http://localhost:5000/question/getQuestions/$categoryName";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {
@@ -148,8 +148,8 @@ class _EditUserAnswerSubmitState extends State<EditUserAnswerSubmit> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Edit Category - Sports',
+        title: Text(
+          'Edit Category - $categoryName',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,

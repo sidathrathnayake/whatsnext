@@ -7,6 +7,7 @@ import 'package:mobile/problems/user_view_problem.dart';
 import 'package:mobile/services/service_user_question_answer.dart';
 import 'package:mobile/user_questions/edit_user_answer_submit.dart';
 import 'package:mobile/user_questions/user_answer_submit.dart';
+import 'package:mobile/user_questions/user_select_category.dart';
 
 class UserViewProfile extends StatefulWidget {
   const UserViewProfile({Key? key}) : super(key: key);
@@ -223,7 +224,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              UserAnswerSubmit()),
+                                                              UserSelectCategory()),
                                                     );
                                                   },
                                                   child: const Text('OK'),
