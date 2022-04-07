@@ -3,6 +3,7 @@ import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:mobile/models/user_question_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/problems/user_view_problem.dart';
 import 'package:mobile/services/service_user_question_answer.dart';
 import 'package:mobile/user_questions/edit_user_answer_submit.dart';
 import 'package:mobile/user_questions/user_answer_submit.dart';
@@ -361,12 +362,12 @@ clickProblems(val, context) {
 
   var details = [question_1, question_2, question_3, question_4, question_5];
 
-  //  Navigator.push(
-  //     context,
-  //     new MaterialPageRoute(
-  //         builder: (context) => new UserViewProblem(
-  //            details : details,
-  //             )));
+   Navigator.push(
+      context,
+      new MaterialPageRoute(
+          builder: (context) => new UserViewProblem(
+             answerTags : details,
+              )));
 }
 
 clickFeed(val, context) {

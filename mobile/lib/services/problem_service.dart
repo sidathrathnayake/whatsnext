@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:mobile/problems/add_problem.dart';
 import 'package:mobile/problems/problem_menu.dart';
 
 class Problems {
@@ -13,7 +12,7 @@ class Problems {
   addProblem(title,link,tag,category) async {
     try {
       print(title);
-        await dio.post('http://192.168.1.101:5000/problem/add',
+        await dio.post('http://localhost:5000/problem/add',
           data: {
             'title': title,
             'link': link,
@@ -47,7 +46,7 @@ class Problems {
 
   updateProblem(id,title,link,tag,category) async {
     try {
-      await dio.put('http://192.168.1.101:5000/problem/update/$id',
+      await dio.put('http://localhost:5000/problem/update/$id',
           data: {
             'title': title,
             'link': link,
@@ -81,7 +80,7 @@ class Problems {
 
   deleteProblem(id) async {
     try {
-      await dio.delete('http://192.168.1.101:5000/problem/delete/$id',
+      await dio.delete('http://localhost:5000/problem/delete/$id',
           options: Options(contentType: Headers.jsonContentType));
 
        Fluttertoast.showToast(
