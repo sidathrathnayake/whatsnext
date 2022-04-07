@@ -4,6 +4,7 @@ const QuestionSchema = new mongoose.Schema({
 
     questionBody:{
         type:String,
+        unique: true,
         required: [true],
     },
     categoryName:{

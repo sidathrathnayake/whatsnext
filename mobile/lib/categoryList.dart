@@ -98,6 +98,7 @@ class _CategoryListState extends State<CategoryList> {
           },
           child: ListTile(
             title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
                   children: [
@@ -110,11 +111,15 @@ class _CategoryListState extends State<CategoryList> {
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    deleteCategory(index);
-                  },
-                  icon: Image.asset('icons/delete.png'),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        deleteCategory(index);
+                      },
+                      icon: Image.asset('icons/delete.png'),
+                    ),
+                  ],
                 )
               ],
             ),

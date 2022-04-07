@@ -191,6 +191,7 @@ class _SignInState extends State<SignIn> {
                                             await SharedPreferences
                                                 .getInstance();
                                         prefs.setString('token', userToken);
+                                        prefs.setString('email', userEmail);
 
                                         Fluttertoast.showToast(
                                             msg: "Authenticated",
