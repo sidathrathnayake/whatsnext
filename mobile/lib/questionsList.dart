@@ -91,22 +91,26 @@ class _QuestionsListState extends State<QuestionsList> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
-          onPressed: () {
-            editQuestions(index);
-          },
+        onPressed: (){},
           child: ListTile(
+            
             title: Row(
+              
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Column(
+                  
                   children: [
-                    Text(
-                      questionBody.toString(),
-                      style: TextStyle(
-                          color: colorCodes.insideText,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: 250,
+                      child: Text(
+                        questionBody.toString(),
+                        style: TextStyle(
+                            color: colorCodes.insideText,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                     // Text(
                     //   categoryName.toString(),
@@ -144,20 +148,20 @@ class _QuestionsListState extends State<QuestionsList> {
     );
   }
 
-  editQuestions(index) {
-    var id = index['_id'].toString();
-    var questionBody = index['questionBody'].toString();
-    var categoryName = index['categoryName'].toString();
-    var questionAnswers = index['questionAnswers'].toString();
-    Navigator.pushReplacement(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => new QuestionsEdit(
-                id: id,
-                questionBody: questionBody,
-                categoryName: categoryName,
-                questionAnswers: questionAnswers)));
-  }
+  // editQuestions(index) {
+  //   var id = index['_id'].toString();
+  //   var questionBody = index['questionBody'].toString();
+  //   var categoryName = index['categoryName'].toString();
+  //   var questionAnswers = index['questionAnswers'].toString();
+  //   Navigator.pushReplacement(
+  //       context,
+  //       new MaterialPageRoute(
+  //           builder: (context) => new QuestionsEdit(
+  //               id: id,
+  //               questionBody: questionBody,
+  //               categoryName: categoryName,
+  //               questionAnswers: questionAnswers)));
+  // }
 
   deleteQuestions(index) {
     var id = index['_id'].toString();

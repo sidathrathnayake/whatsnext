@@ -10,20 +10,30 @@ import 'package:http/http.dart' as http;
 class Questions {
   Dio dio = new Dio();
 
-String getQuestionsLink = "http://10.0.2.2:5000/question/categories";
+  String getQuestionsLink = "http://10.0.2.2:5000/question/categories";
 
-  questionadd(questionBody, selectedCategory, questionAnswers) async {
-    print(questionAnswers);
+  questionadd(questionBody, selectedCategory, questionAnswersList) async {
+    var answerList = questionAnswersList
+        .replaceAll('{', '')
+        .replaceAll('[', '')
+        .replaceAll(']', '')
+        .replaceAll('}', '')
+        .replaceAll(':', '')
+        .replaceAll('value', '')
+        .toString()
+        .trim()
+        .split(',');
+
     try {
       await dio.post('http://10.0.2.2:5000/question/questionadd',
           data: {
             'questionBody': questionBody,
             'categoryName': selectedCategory,
-            'questionAnswers': questionAnswers,
+            'questionAnswers': answerList,
           },
           options: Options(contentType: Headers.jsonContentType));
 
-          return Get.off(() => QuestionsList()); 
+      return Get.off(() => QuestionsList());
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to add!',
@@ -36,8 +46,7 @@ String getQuestionsLink = "http://10.0.2.2:5000/question/categories";
     }
   }
 
-  
-  questionedit(id, questionBody,categoryName, questionAnswers) async {
+  questionedit(id, questionBody, categoryName, questionAnswers) async {
     try {
       await dio.put('http://10.0.2.2:5000/question/updatequestion/$id',
           data: {
@@ -47,9 +56,7 @@ String getQuestionsLink = "http://10.0.2.2:5000/question/categories";
             'questionAnswers': questionAnswers,
           },
           options: Options(contentType: Headers.jsonContentType));
-
       return Get.off(() => QuestionsList());
-      
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to update!',
@@ -71,7 +78,6 @@ String getQuestionsLink = "http://10.0.2.2:5000/question/categories";
           options: Options(contentType: Headers.jsonContentType));
 
       return Get.off(() => QuestionsList());
-      
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to delete!',

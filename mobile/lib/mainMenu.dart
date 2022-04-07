@@ -4,6 +4,12 @@ import 'package:mobile/problems/problem_menu.dart';
 import 'package:mobile/userList.dart';
 import 'package:mobile/variables/variables.dart';
 
+import 'package:mobile/categoryList.dart';
+import 'package:mobile/questionsList.dart';
+import 'package:mobile/variables/variables.dart';
+
+import 'navigational_drawer.dart';
+
 class MainMenu extends StatefulWidget {
   const MainMenu({Key? key}) : super(key: key);
 
@@ -23,6 +29,7 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: NavigationalDrawer(),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -69,7 +76,40 @@ class _MainMenuState extends State<MainMenu> {
                           ]),
                     )),
               ),
-              Card(
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new CategoryList()));
+                },
+              child: Card(
+                  color: Colors.teal,
+                  child: Center(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                "images/categories.png",
+                                height: 120,
+                                width: 140,
+                                alignment: Alignment.topCenter,
+                              )),
+                          Text("CATEGORIES",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white)),
+                        ]),
+                  ))),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new QuestionsList()));
+                },
+              child: Card(
                   color: Colors.teal,
                   child: Center(
                     child: Column(
@@ -87,7 +127,7 @@ class _MainMenuState extends State<MainMenu> {
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white)),
                         ]),
-                  )),
+                  ))),
               Card(
                   color: Colors.teal,
                   child: Center(

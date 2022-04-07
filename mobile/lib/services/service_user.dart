@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:mobile/mainMenu.dart';
 //import 'package:mobile/dashboard.dart';
 import 'package:mobile/signin.dart';
 import 'package:mobile/userList.dart';
@@ -32,12 +33,13 @@ class User {
 
   login(userEmail, userPassword) async {
     try {
-      return await dio.post('http://10.0.2.2:5000/user/userlogin',
+      await dio.post('http://10.0.2.2:5000/user/userlogin',
           data: {
             'userEmail': userEmail,
             'userPassword': userPassword,
           },
           options: Options(contentType: Headers.jsonContentType));
+          return Get.off(() => MainMenu());
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to Sign-in!',
