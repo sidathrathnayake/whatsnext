@@ -72,13 +72,6 @@ class _UserViewProfileState extends State<UserViewProfile> {
       print(listData);
       print(email[0]);
 
-      var abc =[{"value":"abc"},{"value":"xyz"},{"value":"mno"}];
-      abc.add({"value":"vvv"});
-      for(var i=0;i<abc.length;i++){
-        print(abc[i]["value"]);
-      }
-      print((abc[0]["value"]));
-
       return listData
           .map((listData) => new UserQuestion.fromJson(listData))
           .toList();
@@ -230,7 +223,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const UserAnswerSubmit()),
+                                                              UserAnswerSubmit()),
                                                     );
                                                   },
                                                   child: const Text('OK'),

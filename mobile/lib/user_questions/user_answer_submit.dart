@@ -6,8 +6,8 @@ import 'package:mobile/services/service_user_question_answer.dart';
 import 'package:http/http.dart' as http;
 
 class UserAnswerSubmit extends StatefulWidget {
-  const UserAnswerSubmit({Key? key}) : super(key: key);
-
+  var categoryName;
+   UserAnswerSubmit({this.categoryName, Key?key}) : super(key: key);
   @override
   _UserAnswerSubmitState createState() => _UserAnswerSubmitState();
 }
@@ -21,7 +21,7 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
 
   List questionAnswers = [];
 
-  var categoryName = 'Sports',
+  var categoryName,
       userEmail = 'a@gmail.com',
       question_1,
       question_2,
@@ -54,7 +54,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
   String question_05_id = '';
 
   getQuestionAnswers() async {
-    var myUrl = "http://localhost:5000/question/getQuestions/Sports";
+    // var myUrl = "http://1.0.2.2:5000/category/categories";
+    print(categoryName);
+    var myUrl = "http://localhost:5000/question/getQuestions/$categoryName";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {
@@ -95,6 +97,9 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      this.categoryName = widget.categoryName;
+    });
     this.getQuestionAnswers();
   }
 
@@ -106,8 +111,8 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text(
-          'Category - Sports',
+        title:  Text(
+          'Category - $categoryName',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,
