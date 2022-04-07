@@ -24,7 +24,7 @@ class _CategoryListState extends State<CategoryList> {
 
   getCategories() async {
     // var myUrl = "http://1.0.2.2:5000/category/categories";
-    var myUrl = "http://192.168.8.101:5000/category/categories";
+    var myUrl = "http://localhost:5000/category/categories";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {

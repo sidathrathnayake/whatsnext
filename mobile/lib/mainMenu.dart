@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/problems/problem_menu.dart';
+import 'package:mobile/userList.dart';
 import 'package:mobile/variables/variables.dart';
 
 class MainMenu extends StatefulWidget {
@@ -46,7 +47,7 @@ class _MainMenuState extends State<MainMenu> {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (context) => new ProblemMenu()));
+                          builder: (context) => new UserList()));
                 },
                 child: Card(
                     color: Colors.teal,

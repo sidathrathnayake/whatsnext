@@ -17,7 +17,7 @@ class UserQuestionAnswer {
   userInputAdd(categoryName, userEmail, question_1, question_2, question_3,
       question_4, question_5) async {
     try {
-      await dio.post('http://192.168.8.103:5000/user-question/insert',
+      await dio.post('http://localhost:5000/user-question/insert',
           data: {
             'categoryName': categoryName,
             'userEmail': userEmail,
@@ -28,7 +28,14 @@ class UserQuestionAnswer {
             'question_5': question_5,
           },
           options: Options(contentType: Headers.jsonContentType));
-
+      Fluttertoast.showToast(
+          msg: 'User Answers Added Successfull!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          webBgColor: '#808080',
+          textColor: Colors.white,
+          fontSize: 16.0);
       return Get.off(() => UserViewProfile());
     } on DioError catch (e) {
       Fluttertoast.showToast(
@@ -42,11 +49,10 @@ class UserQuestionAnswer {
     }
   }
 
-  userInputEdit(question_1, question_2, question_3,
-      question_4, question_5) async {
+  userInputEdit(
+      question_1, question_2, question_3, question_4, question_5) async {
     try {
-      await dio.put(
-          'http://localhost:5000/user-question/update/a@gmail.com',
+      await dio.put('http://localhost:5000/user-question/update/a@gmail.com',
           data: {
             // 'categoryName': categoryName,
             // 'userEmail': userEmail,
@@ -57,6 +63,14 @@ class UserQuestionAnswer {
             'question_5': question_5,
           },
           options: Options(contentType: Headers.jsonContentType));
+      Fluttertoast.showToast(
+          msg: 'User Answers Edited Successfull!',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 3,
+          webBgColor: '#808080',
+          textColor: Colors.white,
+          fontSize: 16.0);
 
       return Get.off(() => UserViewProfile());
     } on DioError catch (e) {
@@ -73,8 +87,8 @@ class UserQuestionAnswer {
 
   Future userInputGetSingle() async {
     try {
-    await http
-          .get(Uri.parse('http://192.168.8.103:5000/user-question/get-one/a@gmail.com'));
+      await http.get(Uri.parse(
+          'http://192.168.8.103:5000/user-question/get-one/a@gmail.com'));
     } catch (e) {
       print(e);
     }

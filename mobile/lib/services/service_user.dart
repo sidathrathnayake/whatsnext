@@ -14,7 +14,8 @@ class User {
   Dio dio = new Dio();
   register(userEmail, userPassword) async {
     try {
-      return await dio.post('http://10.0.2.2:5000/user/userregister',
+      // return await dio.post('http://10.0.2.2:5000/user/userregister',
+      return await dio.post('http://localhost:5000/user/userregister',
           data: {'userEmail': userEmail, 'userPassword': userPassword},
           options: Options(contentType: Headers.jsonContentType));
     } on DioError catch (e) {

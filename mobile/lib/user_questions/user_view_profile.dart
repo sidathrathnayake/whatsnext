@@ -5,6 +5,7 @@ import 'package:mobile/models/user_question_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/services/service_user_question_answer.dart';
 import 'package:mobile/user_questions/edit_user_answer_submit.dart';
+import 'package:mobile/user_questions/user_answer_submit.dart';
 
 class UserViewProfile extends StatefulWidget {
   const UserViewProfile({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
 
   Future delete(String id) async {
     await http.delete(
-      Uri.parse('http://192.168.8.101:5000/user-question/delete/${id}'),
+      Uri.parse('http://localhost:5000/user-question/delete/${id}'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -90,7 +91,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
   @override
   void initState() {
     super.initState();
-    fetchAlbum();    
+    fetchAlbum();
   }
 
   @override
@@ -217,6 +218,12 @@ class _UserViewProfileState extends State<UserViewProfile> {
                                                         .id);
                                                     Navigator.pop(
                                                         context, 'OK');
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const UserAnswerSubmit()),
+                                                    );
                                                   },
                                                   child: const Text('OK'),
                                                 ),
