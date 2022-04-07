@@ -21,19 +21,6 @@ class _AddProblemState extends State<AddProblem> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   // centerTitle: true,
-      //   // leading: Icon(Icon.warning_amber,color: Colors.pink,size: 24.0,),
-      //   title: const Text(
-      //     'Add Problem',
-      //     textAlign: TextAlign.center,
-      //     style: TextStyle(
-      //       color: Colors.white,
-      //     ),
-      //   ),
-      //   backgroundColor: Colors.cyan,
-      // ),
       body: SingleChildScrollView(
         child: Container(
           height: size.height,
