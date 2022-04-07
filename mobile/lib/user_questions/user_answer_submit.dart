@@ -54,7 +54,6 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
   String question_05_id = '';
 
   getQuestionAnswers() async {
-    // var myUrl = "http://1.0.2.2:5000/category/categories";
     var myUrl = "http://localhost:5000/question/getQuestions/Sports";
 
     var response = await http.get(Uri.parse(myUrl));
