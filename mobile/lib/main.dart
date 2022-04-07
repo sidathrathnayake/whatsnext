@@ -49,9 +49,9 @@ class MyApp extends StatelessWidget {
       // home: UserViewProblem(),
       // home: UserAnswerSubmit(),
       // home: UserViewProfile(),
-      home: MainMenu(),
+      // home: MainMenu(),
       // home: CategoryList(),
-      // home: UserList(),
+      home: UserList(),
     );
   }
 }

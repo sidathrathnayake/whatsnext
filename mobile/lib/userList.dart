@@ -18,13 +18,10 @@ class UserList extends StatefulWidget {
 ColorCodes colorCodes = new ColorCodes();
 
 class _UserListState extends State<UserList> {
-  // late List data;
-
   List users = [];
   bool isLoading = false;
 
   getUsers() async {
-    // var myUrl = "http://1.0.2.2:5000/category/categories";
     var myUrl = "http://localhost:5000/user/users";
 
     var response = await http.get(Uri.parse(myUrl));
@@ -81,11 +78,9 @@ class _UserListState extends State<UserList> {
 
     return Center(
       child: Padding(
-        // padding: const EdgeInsets.all(8.0),
         padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
         child: ElevatedButton(
           onPressed: () {
-            // editCategory(index);
           },
           child: ListTile(
             title: Row(
