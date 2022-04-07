@@ -2,7 +2,7 @@ const Error = require('../utils/error_response');
 
 const errorHandler = (err, req, res, next) => {
 
-    const error = {...err};
+    let error = {...err};
 
     error.message = err.message;
 

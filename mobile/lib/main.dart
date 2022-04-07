@@ -13,6 +13,9 @@ import 'package:mobile/categoryList.dart';
 import 'package:mobile/questionsAdd.dart';
 import 'package:mobile/signup.dart';
 import 'package:mobile/userList.dart';
+import 'package:mobile/user_feeds/AddPost.dart';
+import 'package:mobile/user_feeds/comment_page.dart';
+import 'package:mobile/user_feeds/post_page.dart';
 import 'package:mobile/user_questions/user_answer_submit.dart';
 import 'package:mobile/user_questions/user_select_category.dart';
 import 'package:mobile/user_questions/user_view_profile.dart';
@@ -51,9 +54,14 @@ class MyApp extends StatelessWidget {
       // home: UserAnswerSubmit(),
       // home: UserViewProfile(),
       // home: MainMenu(),
-      home:UserSelectCategory()
+      //home:UserSelectCategory()
       // home: CategoryList(),
       // home: UserList(),
+      initialRoute: PostPage.routerName,
+        routes: {
+          PostPage.routerName : (context) => const PostPage(),
+          AddPost.routerName : (context) => const AddPost(),
+        },
     );
   }
 }
