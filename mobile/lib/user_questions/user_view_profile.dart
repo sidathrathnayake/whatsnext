@@ -10,14 +10,15 @@ import 'package:mobile/user_questions/user_answer_submit.dart';
 import 'package:mobile/user_questions/user_select_category.dart';
 
 class UserViewProfile extends StatefulWidget {
-  const UserViewProfile({Key? key}) : super(key: key);
+  var userEmail;
+  UserViewProfile({this.userEmail,Key? key}) : super(key: key);
 
   @override
   State<UserViewProfile> createState() => _UserViewProfileState();
 }
 
 class _UserViewProfileState extends State<UserViewProfile> {
-  var email;
+  var email,userEmail;
   // var email1;
   // late Future<UserQuestion> futureAlbum;
   // List userQuestionAnswer = [];
@@ -65,7 +66,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
     //   throw Exception('Failed to load album');
     // }
     final url =
-        Uri.parse("http://localhost:5000/user-question/get/a@gmail.com");
+        Uri.parse("http://localhost:5000/user-question/get/${userEmail}");
     final response = await http.get(url);
     if (response.statusCode == 200) {
       List listData = json.decode(response.body);
@@ -93,6 +94,9 @@ class _UserViewProfileState extends State<UserViewProfile> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      this.userEmail = widget.userEmail;
+    });
     fetchAlbum();
   }
 
@@ -224,7 +228,7 @@ class _UserViewProfileState extends State<UserViewProfile> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              UserSelectCategory()),
+                                                              UserSelectCategory(email: userEmail,)),
                                                     );
                                                   },
                                                   child: const Text('OK'),

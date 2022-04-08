@@ -40,7 +40,6 @@ class _EditUserAnswerSubmitState extends State<EditUserAnswerSubmit> {
   List questionAnswers = [];
 
   var categoryName = 'Sports',
-      userEmail = 'a@gmail.com',
       question_1,
       question_2,
       question_3,
@@ -593,6 +592,7 @@ class _EditUserAnswerSubmitState extends State<EditUserAnswerSubmit> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     UserQuestionAnswer().userInputEdit(
+                                      userEmail,
                                         question_1,
                                         question_2,
                                         question_3,

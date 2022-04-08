@@ -35,7 +35,7 @@ class UserQuestionAnswer {
           webBgColor: '#808080',
           textColor: Colors.white,
           fontSize: 16.0);
-      return Get.off(() => UserViewProfile());
+      return Get.off(() => UserViewProfile(userEmail:userEmail));
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to add!',
@@ -48,10 +48,10 @@ class UserQuestionAnswer {
     }
   }
 
-  userInputEdit(
+  userInputEdit(userEmail,
       question_1, question_2, question_3, question_4, question_5) async {
     try {
-      await dio.put('http://localhost:5000/user-question/update/a@gmail.com',
+      await dio.put('http://localhost:5000/user-question/update/${userEmail}',
           data: {
             // 'categoryName': categoryName,
             // 'userEmail': userEmail,
@@ -71,7 +71,7 @@ class UserQuestionAnswer {
           textColor: Colors.white,
           fontSize: 16.0);
 
-      return Get.off(() => UserViewProfile());
+      return Get.off(() => UserViewProfile(userEmail: userEmail));
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to update!',

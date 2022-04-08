@@ -13,7 +13,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 class UserNavigation extends StatelessWidget {
-  const UserNavigation({Key? key}) : super(key: key);
+  var userEmail;
+  UserNavigation({this.userEmail,Key? key}) : super(key: key);
+
+  // @override
+  // void initState() {
+  //   setState(() {
+  //     this.userEmail = widget.email;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +128,7 @@ class UserNavigation extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UserViewProfile(),
+          builder: (context) => UserViewProfile(userEmail: userEmail,),
         ));
         break;
       case 2:

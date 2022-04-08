@@ -264,7 +264,7 @@ class _SignUpState extends State<SignUp> {
                                             context,
                                             new MaterialPageRoute(
                                                 builder: (context) =>
-                                                    MainMenu()));
+                                                    SignIn()));
                                     User()
                                         .register(
                                             userEmail,

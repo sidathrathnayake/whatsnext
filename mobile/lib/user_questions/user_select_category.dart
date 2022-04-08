@@ -10,14 +10,16 @@ import 'package:mobile/user_questions/edit_user_answer_submit.dart';
 import 'package:mobile/user_questions/user_answer_submit.dart';
 
 class UserSelectCategory extends StatefulWidget {
-  const UserSelectCategory({Key? key}) : super(key: key);
+  var email;
+  UserSelectCategory({this.email,Key? key}) : super(key: key);
 
   @override
   State<UserSelectCategory> createState() => _UserSelectCategoryState();
 }
 
 class _UserSelectCategoryState extends State<UserSelectCategory> {
-  var email;
+  // var email;
+  var userEmail;
 
   Future<List<UserCategory>> fetchAlbum() async {
     final url = Uri.parse("http://localhost:5000/category/categories");
@@ -36,6 +38,9 @@ class _UserSelectCategoryState extends State<UserSelectCategory> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      this.userEmail = widget.email;
+    });
     fetchAlbum();
   }
 
@@ -43,7 +48,7 @@ class _UserSelectCategoryState extends State<UserSelectCategory> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: UserNavigation(),
+      drawer: UserNavigation(userEmail:userEmail),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -112,7 +117,7 @@ class _UserSelectCategoryState extends State<UserSelectCategory> {
                                                     new UserAnswerSubmit(
                                                       categoryName: snapshot
                                                           .data![currentIndex]
-                                                          .categoryName,
+                                                          .categoryName,userEmail:userEmail
                                                     )));
                                       },
                                       child: Text(

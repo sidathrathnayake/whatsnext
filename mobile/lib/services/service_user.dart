@@ -20,7 +20,7 @@ class User {
        await dio.post('http://localhost:5000/user/userregister',
           data: {'userEmail': userEmail, 'userPassword': userPassword},
           options: Options(contentType: Headers.jsonContentType));
-          return Get.off(() => UserSelectCategory());
+          return Get.off(() => SignIn());
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to register!',
@@ -41,7 +41,12 @@ class User {
             'userPassword': userPassword,
           },
           options: Options(contentType: Headers.jsonContentType));
-          return Get.off(() => MainMenu());
+          if(userEmail.contains("admin@gmail.com")){
+            return Get.off(() => MainMenu());
+          } else{
+            return Get.off(() => UserSelectCategory(email:userEmail));
+          }
+          
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to Sign-in!',
@@ -65,9 +70,9 @@ class User {
   }
 
   signout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('token'));
-    prefs.remove('token');
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // print(prefs.getString('token'));
+    // prefs.remove('token');
     Get.off(() => SignIn());
   }
 

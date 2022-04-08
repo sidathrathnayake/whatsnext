@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAnswerSubmit extends StatefulWidget {
-  var categoryName;
-   UserAnswerSubmit({this.categoryName, Key?key}) : super(key: key);
+  var categoryName,userEmail;
+   UserAnswerSubmit({this.categoryName,this.userEmail, Key?key}) : super(key: key);
   @override
   _UserAnswerSubmitState createState() => _UserAnswerSubmitState();
 }
@@ -22,14 +22,14 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
 
   List questionAnswers = [];
 
-  var userEmail;
-  Future getEmail()async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    userEmail = prefs.getString('email');
-  }
+  // var userEmail;
+  // Future getEmail()async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   userEmail = prefs.getString('email');
+  // }
 
   var categoryName,
-      //userEmail = email,
+      userEmail,
       question_1,
       question_2,
       question_3,
@@ -104,11 +104,14 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
   @override
   void initState() {
     super.initState();
-    setState(() {
+    setState (() {
       this.categoryName = widget.categoryName;
+      this.userEmail = widget.userEmail;
+      // SharedPreferences prefs =  await SharedPreferences.getInstance();
+      // this.userEmail = prefs.getString('email');
     });
     this.getQuestionAnswers();
-    getEmail();
+    // getEmail();
   }
 
   @override
@@ -563,14 +566,14 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    // UserQuestionAnswer().userInputAdd(
-                                    //     categoryName,
-                                    //     userEmail,
-                                    //     question_1,
-                                    //     question_2,
-                                    //     question_3,
-                                    //     question_4,
-                                    //     question_5);
+                                    UserQuestionAnswer().userInputAdd(
+                                        categoryName,
+                                        userEmail,
+                                        question_1,
+                                        question_2,
+                                        question_3,
+                                        question_4,
+                                        question_5);
                                     print(userEmail);
                                   } else {
                                     print("no");
