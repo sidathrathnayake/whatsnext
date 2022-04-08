@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:js';
 import 'package:flutter/material.dart';
+import 'package:mobile/UserNavigation.dart';
 import 'package:mobile/models/user_category_model.dart';
 import 'package:mobile/models/user_question_model.dart';
 import 'package:http/http.dart' as http;
@@ -42,6 +43,7 @@ class _UserSelectCategoryState extends State<UserSelectCategory> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: UserNavigation(),
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,

@@ -11,7 +11,7 @@ import 'package:mobile/user_questions/user_view_profile.dart';
 class UserQuestionAnswer {
   Dio dio = new Dio();
 
-  String getCategoriesUrl = "http://192.168.8.103:5000/category/categories";
+  String getCategoriesUrl = "http://localhost:5000/category/categories";
 
   userInputAdd(categoryName, userEmail, question_1, question_2, question_3,
       question_4, question_5) async {
@@ -87,7 +87,7 @@ class UserQuestionAnswer {
   Future userInputGetSingle() async {
     try {
       await http.get(Uri.parse(
-          'http://192.168.8.103:5000/user-question/get-one/a@gmail.com'));
+          'http://localhost:5000/user-question/get-one/a@gmail.com'));
     } catch (e) {
       print(e);
     }

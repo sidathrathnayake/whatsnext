@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/problems/problem_menu.dart';
+import 'package:mobile/services/service_user.dart';
 import 'package:mobile/userList.dart';
 import 'package:mobile/variables/variables.dart';
 
@@ -23,10 +24,14 @@ class _MainMenuState extends State<MainMenu> {
   @override
   void initState() {
     super.initState();
+    
   }
+
 
   @override
   Widget build(BuildContext context) {
+
+    // User().asyncFunc();
     var size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: NavigationalDrawer(),

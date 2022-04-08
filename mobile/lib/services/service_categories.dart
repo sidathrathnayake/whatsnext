@@ -10,11 +10,11 @@ import 'package:mobile/categoryList.dart';
 class Categories {
   Dio dio = new Dio();
 
-  String getCategoriesUrl = "http://10.0.2.2:5000/category/categories";
+  String getCategoriesUrl = "http://localhost:5000/category/categories";
 
   categoryadd(categoryName) async {
     try {
-        await dio.post('http://10.0.2.2:5000/category/categoryadd',
+        await dio.post('http://localhost:5000/category/categoryadd',
           data: {
             'categoryName': categoryName,
           },
@@ -36,7 +36,7 @@ class Categories {
 
   categoryedit(id, categoryName) async {
     try {
-      await dio.put('http://10.0.2.2:5000/category/updatecategory/$id',
+      await dio.put('http://localhost:5000/category/updatecategory/$id',
           data: {
             '_id': id,
             'categoryName': categoryName,
@@ -59,7 +59,7 @@ class Categories {
 
   categorydelete(id) async {
     try {
-      await dio.delete('http://10.0.2.2:5000/category/deletecategory/$id',
+      await dio.delete('http://localhost:5000/category/deletecategory/$id',
           data: {
             '_id': id,
           },

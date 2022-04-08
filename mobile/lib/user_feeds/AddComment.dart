@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile/user_feeds/comment_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/Post.dart';
 class AddComment extends StatefulWidget {
@@ -18,10 +19,12 @@ class _AddCommentState extends State<AddComment> {
   final _formKey = GlobalKey<FormState>();
   var newComment;
 
-      Future addComment() async {
+    Future addComment() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userID = prefs.getString('userID');
 
     final String addPost = 'http://localhost:5000/posts/add-comment';
-    final String userID = "61e7b05ea716b43e1c6013e6";
     Dio dio = new Dio();
     dio.options.headers = {'Content-Type': 'application/json'};
     try{

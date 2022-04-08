@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/categoryList.dart';
 import 'package:mobile/mainMenu.dart';
-import 'package:mobile/problems/problem_menu.dart';
 import 'package:mobile/questionsList.dart';
 import 'package:mobile/services/service_questions.dart';
 import 'package:mobile/services/service_user.dart';
 import 'package:mobile/signin.dart';
-import 'package:mobile/userList.dart';
+import 'package:mobile/user_feeds/post_page.dart';
+import 'package:mobile/user_questions/user_select_category.dart';
+import 'package:mobile/user_questions/user_view_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 
-class NavigationalDrawer extends StatelessWidget {
-  const NavigationalDrawer({Key? key}) : super(key: key);
+class UserNavigation extends StatelessWidget {
+  const UserNavigation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,33 +45,23 @@ class NavigationalDrawer extends StatelessWidget {
               height: 5,
             ),
             buildMenuItem(
-              text: 'Categories',
-              icon: Icons.category,
+              text: 'Profile',
+              icon: Icons.account_circle,
               onClicked: () => selectedItem(context, 1),
             ),
             SizedBox(
               height: 5,
             ),
             buildMenuItem(
-              text: 'Questions',
-              icon: Icons.question_answer,
+              text: 'User Posts',
+              icon: Icons.post_add,
               onClicked: () => selectedItem(context, 2),
             ),
             SizedBox(
               height: 5,
             ),
-            buildMenuItem(
-              text: 'Users',
-              icon: Icons.account_circle,
-              onClicked: () => selectedItem(context, 3),
-            ),
             SizedBox(
               height: 5,
-            ),
-            buildMenuItem(
-              text: 'Problems',
-              icon: Icons.report_problem,
-              onClicked: () => selectedItem(context, 4),
             ),
             SizedBox(
               height: 24,
@@ -93,7 +84,7 @@ class NavigationalDrawer extends StatelessWidget {
             buildMenuItem(
               text: 'Sign Out',
               icon: Icons.logout,
-              onClicked: () => selectedItem(context, 5),
+              onClicked: () => selectedItem(context, 3),
             ),
           ],
         ),
@@ -124,30 +115,20 @@ class NavigationalDrawer extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MainMenu(),
+          builder: (context) => UserSelectCategory(),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CategoryList(),
+          builder: (context) => UserViewProfile(),
         ));
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => QuestionsList(),
+          builder: (context) => PostPage(),
         ));
         break;
       case 3:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UserList(),
-        ));
-        break;
-      case 4:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProblemMenu(),
-        ));
-        break;
-      case 5:
         User().signout();
         break;
     }

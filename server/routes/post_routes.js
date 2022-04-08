@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
+const { findOne } = require('../models/Post.model');
+const User = require('../model/User');
 
 /**
  * Using this function, a new post can be added
@@ -150,6 +152,26 @@ router.route('/get-all-comments/:id').get(async (req, res) =>{
             })
         })
     }catch (error){
+        res.status(500).send({
+            success:false,
+            message:error.message
+        })
+    }
+})
+
+/**
+ * Get user id
+ * 
+*/
+router.route('/get-user-id/:email').get(async (req, res) =>{
+    try{
+        await User.findOne({userEmail:req.params.email}).then(data =>{
+            res.status(200).send({
+                success:true,
+                data:data._id,
+            })
+        })
+    }catch(error){
         res.status(500).send({
             success:false,
             message:error.message

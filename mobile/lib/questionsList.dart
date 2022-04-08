@@ -21,7 +21,7 @@ class _QuestionsListState extends State<QuestionsList> {
   bool isLoading = false;
 
   getQuestions() async {
-    var myUrl = "http://10.0.2.2:5000/question/questions";
+    var myUrl = "http://localhost:5000/question/questions";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {

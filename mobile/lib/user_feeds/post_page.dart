@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:mobile/components/post_tile.dart';
 import 'package:mobile/models/Post.dart';
 import 'package:mobile/services/post_services.dart';
 import 'package:mobile/user_feeds/AddPost.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PostPage extends StatefulWidget {
   static const String routerName = '/post';
@@ -16,6 +18,21 @@ class PostPage extends StatefulWidget {
 
   @override
   State<PostPage> createState() => _PostPageState();
+}
+
+Future getUserID() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var email = prefs.getString('email');
+  final String deletePost = "http://localhost:5000/posts/delete-post/${email}";
+  Dio dio = new Dio();
+  try{
+    var response = await dio.get(deletePost);
+    if (response.statusCode == 200){
+      prefs.setString('userID', jsonDecode(response.data)['data']);
+    }
+  }on DioError catch(error){
+    print(error);
+  }
 }
 
 class _PostPageState extends State<PostPage> {

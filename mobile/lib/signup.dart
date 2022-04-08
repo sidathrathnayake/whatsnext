@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/mainMenu.dart';
 import 'package:mobile/signIn.dart';
 import 'package:mobile/services/service_user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -263,7 +264,7 @@ class _SignUpState extends State<SignUp> {
                                             context,
                                             new MaterialPageRoute(
                                                 builder: (context) =>
-                                                    SignIn()));
+                                                    MainMenu()));
                                     User()
                                         .register(
                                             userEmail,

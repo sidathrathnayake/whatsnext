@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mobile/user_feeds/post_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/post_services.dart';
 
@@ -20,9 +21,9 @@ class _AddPostState extends State<AddPost> {
   
 
     Future addPost() async {
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userID = prefs.getString('userID');
     final String addPost = 'http://localhost:5000/posts/add-post';
-    final String userID = "61e7b05ea716b43e1c6013e6";
     Dio dio = new Dio();
     dio.options.headers = {'Content-Type': 'application/json'};
     try{

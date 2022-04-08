@@ -47,7 +47,7 @@ class _QuestionsEditState extends State<QuestionsEdit> {
   }
 
   getCategories() async {
-    var myUrl = "http://10.0.2.2:5000/category/categories";
+    var myUrl = "http://localhost:5000/category/categories";
 
     var response = await http.get(Uri.parse(myUrl));
     if (response.statusCode == 200) {

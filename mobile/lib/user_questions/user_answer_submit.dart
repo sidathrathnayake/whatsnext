@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mobile/SignIn.dart';
 import 'package:mobile/services/service_user_question_answer.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAnswerSubmit extends StatefulWidget {
   var categoryName;
@@ -21,8 +22,14 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
 
   List questionAnswers = [];
 
+  var userEmail;
+  Future getEmail()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userEmail = prefs.getString('email');
+  }
+
   var categoryName,
-      userEmail = 'a@gmail.com',
+      //userEmail = email,
       question_1,
       question_2,
       question_3,
@@ -101,6 +108,7 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
       this.categoryName = widget.categoryName;
     });
     this.getQuestionAnswers();
+    getEmail();
   }
 
   @override
@@ -555,15 +563,15 @@ class _UserAnswerSubmitState extends State<UserAnswerSubmit> {
                                     borderRadius: BorderRadius.circular(30.0)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    UserQuestionAnswer().userInputAdd(
-                                        categoryName,
-                                        userEmail,
-                                        question_1,
-                                        question_2,
-                                        question_3,
-                                        question_4,
-                                        question_5);
-                                    print('clicked');
+                                    // UserQuestionAnswer().userInputAdd(
+                                    //     categoryName,
+                                    //     userEmail,
+                                    //     question_1,
+                                    //     question_2,
+                                    //     question_3,
+                                    //     question_4,
+                                    //     question_5);
+                                    print(userEmail);
                                   } else {
                                     print("no");
                                   }

@@ -8,6 +8,7 @@ import 'package:mobile/mainMenu.dart';
 //import 'package:mobile/dashboard.dart';
 import 'package:mobile/signin.dart';
 import 'package:mobile/userList.dart';
+import 'package:mobile/user_questions/user_select_category.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,10 +16,11 @@ class User {
   Dio dio = new Dio();
   register(userEmail, userPassword) async {
     try {
-      // return await dio.post('http://10.0.2.2:5000/user/userregister',
-      return await dio.post('http://localhost:5000/user/userregister',
+      // return await dio.post('http://localhost:5000/user/userregister',
+       await dio.post('http://localhost:5000/user/userregister',
           data: {'userEmail': userEmail, 'userPassword': userPassword},
           options: Options(contentType: Headers.jsonContentType));
+          return Get.off(() => UserSelectCategory());
     } on DioError catch (e) {
       Fluttertoast.showToast(
           msg: 'Unable to register!',
@@ -33,7 +35,7 @@ class User {
 
   login(userEmail, userPassword) async {
     try {
-      await dio.post('http://10.0.2.2:5000/user/userlogin',
+      await dio.post('http://localhost:5000/user/userlogin',
           data: {
             'userEmail': userEmail,
             'userPassword': userPassword,
@@ -52,15 +54,15 @@ class User {
     }
   }
 
-  // asyncFunc() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  asyncFunc() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  //   if (prefs.getString('token') != null) {
-  //     return null;
-  //   } else {
-  //     Get.off(() => SignIn());
-  //   }
-  // }
+    if (prefs.getString('token') != null) {
+      return null;
+    } else {
+      Get.off(() => SignIn());
+    }
+  }
 
   signout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -69,7 +71,7 @@ class User {
     Get.off(() => SignIn());
   }
 
-  String getCategoriesUrl = "http://10.0.2.2:5000/category/categories";
+  String getCategoriesUrl = "http://localhost:5000/category/categories";
 
   // Future<List?> getCategories() async {
   //   try {

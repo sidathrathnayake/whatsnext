@@ -202,11 +202,11 @@ class _SignInState extends State<SignIn> {
                                                 colorCodes.toastSuccess,
                                             textColor: colorCodes.insideText,
                                             fontSize: 16.0);
-                                        Navigator.pushReplacement(
-                                            context,
-                                            new MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DashboardAdmin()));
+                                        // Navigator.pushReplacement(
+                                        //     context,
+                                        //     new MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             DashboardAdmin()));
                                       } else {
                                         Fluttertoast.showToast(
                                             msg: "Email or Password incorrect!",
