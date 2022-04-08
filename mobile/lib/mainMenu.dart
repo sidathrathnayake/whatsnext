@@ -133,23 +133,6 @@ class _MainMenuState extends State<MainMenu> {
                                   TextStyle(fontSize: 18, color: Colors.white)),
                         ]),
                   ))),
-              Card(
-                  color: Colors.teal,
-                  child: Center(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                              alignment: Alignment.center,
-                              child: Image.asset("images/feeds.jpg",
-                                  height: 120,
-                                  width: 140,
-                                  alignment: Alignment.topCenter)),
-                          Text("FEEDS",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white)),
-                        ]),
-                  )),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
